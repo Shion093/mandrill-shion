@@ -20,4 +20,4 @@ jspm_packages
 .env
 
 # docs
-./docs
+dist
