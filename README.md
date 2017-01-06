@@ -1,7 +1,7 @@
 ## Example
 
 ```sh
-$ import {sendMail, initialMailer} from 'mandrill-shion';
+ import {sendMail, initialMailer} from 'mandrill-shion';
 
   // Initialize your Mandrill Api with your api key
   initialMailer('YOUR_API_KEY');
@@ -20,18 +20,7 @@ $ import {sendMail, initialMailer} from 'mandrill-shion';
             email     : 'example@example.com',
             firstName : 'Juan',
           },
-          {
-            items     : ['hola', 'hello'],
-            date      : 'today',
-            email     : 'example1@example1.com',
-            firstName : 'Juan Jose',
-          },
-          {
-            items     : ['hola', 'hello'],
-            date      : 'today',
-            email     : 'example2@example2.com',
-            firstName : 'Pancho',
-          },
+          ...
         ];
   
         const mail = await sendMail({
@@ -46,13 +35,6 @@ $ import {sendMail, initialMailer} from 'mandrill-shion';
         
        ...
        
-      } catch (err) {
-      
-        ....
-        
-      }
-    }
-  }
 ```
 
 
@@ -65,3 +47,7 @@ $ npm install mandrill-shion --save
 ```
 
 ## Usage
+
+### Options
+
+
