@@ -18,9 +18,9 @@ function initialMailer(apiKey) {
   mandrillClient = new _mandrill.Mandrill(apiKey);
 }
 
-function sendSingle(hola) {
+function sendSingle(email, name) {
   console.log(hola);
-  var mailObj = (0, _single.createMailObj)('dnamic-catalog', 'test from npm', 'shion093@gmail.com', 'Alex', true, 'handlebars');
+  var mailObj = (0, _single.createMailObj)('dnamic-catalog', 'test from npm', email, name, true, 'handlebars');
   sendEmail(mailObj).then(function (result) {
     console.log(result);
     return result;

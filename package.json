@@ -1,6 +1,6 @@
 {
   "name": "mandrill-shion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "mandrill module, for sending emails",
   "main": "dist/index.js",
   "scripts": {
