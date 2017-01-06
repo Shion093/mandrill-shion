@@ -1,38 +1,12 @@
+import _ from 'lodash';
 import { Mandrill } from 'mandrill-api/mandrill';
-import { createMailObj } from './single';
+import { createMailObjMultiple} from './multiple';
+import { formatVars } from './format';
 
 let mandrillClient;
 
 export function initialMailer (apiKey) {
-  console.log(apiKey);
   mandrillClient = new Mandrill(apiKey);
-}
-
-export function sendSingle (email, name) {
-  const mailObj = createMailObj('dnamic-catalog', 'test from npm', email, name, true, 'handlebars');
-  sendEmail(mailObj).then((result)=> {
-    console.log(result);
-    return result;
-  });
-}
-
-
-export function createMailObjMultiple (tmpName, subject, userInfo, mergeVars, important, lang) {
-  return {
-    template_name    : tmpName,
-    template_content : [],
-    message          : {
-      subject        : subject,
-      from_email     : 'no-reply@dnamicworld.com',
-      from_name      : 'dnamicworld',
-      to             : userInfo,
-      important      : important,
-      merge          : true,
-      merge_language : lang,
-      merge_vars     : mergeVars,
-    },
-    async : false,
-  };
 }
 
 function sendEmail (mailObj) {
@@ -40,8 +14,33 @@ function sendEmail (mailObj) {
     mandrillClient.messages.sendTemplate(mailObj, () => {
       resolve({sent : true});
     }, (err) => {
-      console.log(err);
+      console.log('ERROR! ', err);
       reject({sent : false});
+    });
+  });
+}
+
+export function sendMail ({template, subject, important, lang, variables, fromEmail, fromName}) {
+  return new Promise((resolve, reject) => {
+    let userInfo = [];
+    let mergeVars = [];
+    _.each(variables, (obj) => {
+      const mailFormat = formatVars(obj);
+      userInfo = [...userInfo, {
+        email : mailFormat.userInfo.email,
+        name  : mailFormat.userInfo.firstName,
+        type  : 'to',
+      }];
+      mergeVars = [...mergeVars, {
+        rcpt : mailFormat.userInfo.email,
+        vars : mailFormat.mergeVars,
+      }];
+    });
+    const mailObj = createMailObjMultiple(template, subject, userInfo, mergeVars, important, lang, fromEmail, fromName);
+    sendEmail(mailObj).then((result) => {
+      resolve(result);
+    }).catch((err) => {
+      reject(err);
     });
   });
 }
