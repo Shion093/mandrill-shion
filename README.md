@@ -2,6 +2,8 @@
 
 ```sh
 $ import {sendMail, initialMailer} from 'mandrill-shion';
+
+  // Initialize your Mandrill Api with your api key
   initialMailer('YOUR_API_KEY');
   
   export default class SendExample {
@@ -59,7 +61,7 @@ $ import {sendMail, initialMailer} from 'mandrill-shion';
 This project uses [node](http://nodejs.org) and [npm](https://npmjs.com). Go check them out if you don't have them locally installed.
 
 ```sh
-$ npm i standard-readme
+$ npm install mandrill-shion --save
 ```
 
 ## Usage
